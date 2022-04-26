@@ -3,15 +3,15 @@ const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 
 cloudinary.config({
-  cloud_name: "dupdaabbd",
-  api_key: "792473875694238",
-  api_secret: "hjhDOm7-np_91aqBW6NB2V_8y98",
+  cloud_name: "dvlyipyzd",
+  api_key: "121768759843598",
+  api_secret: "FTud5e3VlOgZ7rwqVzoWy2y7TjI",
 });
 
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: "leeyet-product",
+    folder: "product",
     format: async () => "png",
     public_id: (req, file) => file.filename,
   },

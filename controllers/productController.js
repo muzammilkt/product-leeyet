@@ -15,8 +15,8 @@ const addProduct = async (req, res) => {
   try {
     const product = await productdata.save();
     res.json(product);
-  } catch (error) {
-    res.json(error);
+  } catch (err) {
+    res.json(err.message);
   }
 };
 
@@ -25,8 +25,8 @@ const getAllProduct = async (req, res) => {
   try {
     const allProducts = await product.find();
     res.json(allProducts);
-  } catch (error) {
-    res.json(error);
+  } catch (err) {
+    res.json(err.message);
   }
 };
 

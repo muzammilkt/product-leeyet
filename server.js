@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const express = require("express");
 const cors = require("cors");
+const {errorHandler} = require("./middleware/errorMiddleware");
 
 mongoose
   .connect(
@@ -13,6 +14,7 @@ const app = express();
 app.use(cors());
 app.use(express.json())
 app.listen(5001 , ()=> console.log(`server running at the port 5001`))
+app.use(errorHandler);
 
 app.use("/api/product",require("./routes/productRoute"))
 
