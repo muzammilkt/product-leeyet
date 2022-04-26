@@ -1,11 +1,12 @@
 const req = require("express/lib/request");
 const res = require("express/lib/response");
 const product = require("../models/productModel");
+const javascriptBarcodeReader = require("javascript-barcode-reader");
 
 //add new product
 const addProduct = async (req, res) => {
   const productdata = new product({
-    image: req.body.Image,
+    image: req.files,
     name: req.body.name,
     discription: req.body.discription,
     price: req.body.price,
@@ -80,12 +81,15 @@ const deleteProduct = async (req, res) => {
 
 //get Product By Barcode
 const getProductByBarcode = async (req, res) => {
-    try {
-        const productByBarcode = await product.find({barcode : req.body.barcode})
-        res.json(productByBarcode);
-    } catch (error) {
-        res.json(error.message)
-    }
+  try {
+    let reader = new BarCodeReader(req.bod.barcode, null, null);
+    const identifyProduct = reader.readBarCodes().forEach(function (result, i, results) {
+      return product.find({barcode:result.getCodeText})
+    });
+    res.json(identifyProduct);
+  } catch (error) {
+    res.json(error.message);
+  }
 };
 module.exports = {
   addProduct,
@@ -93,5 +97,5 @@ module.exports = {
   getProductById,
   editProductDetails,
   deleteProduct,
-  getProductByBarcode
+  getProductByBarcode,
 };
